@@ -1,0 +1,6 @@
+rootProject.name = 'popoll-project'
+
+include 'popoll-eureka'
+//include 'popoll-hystrix'
+//include 'popoll-slackbot'
+//include 'popoll-survey'
