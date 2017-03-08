@@ -7,14 +7,14 @@ export interface PollMock {
   votes: number[];
 }
 
-export function GeneratePollMock(mAnswers?: string[], mVotes?: number[]): PollMock {
+export function GeneratePollMock(pAnswers?: string[], pVotes?: number[]): PollMock {
   const mock = {
     authorName: "Vincent Milano",
-    question: "Test question",
+    question: "Is that a good question ?",
     channel: "#testChan",
     created: new Date(),
-    answers: mAnswers || [ 'Download Sales', 'In-Store Sales', 'Mail-Order Sales' ],
-    votes: mVotes || [ 350, 450, 100 ]
+    answers: pAnswers || [ 'Yep', 'Nope', 'Maybe..' ],
+    votes: pVotes || [ 42, 1, 12 ]
   };
 
   console.warn("Generated PollMock: ");
