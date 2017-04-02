@@ -8,7 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestController
 class PollController {
@@ -37,7 +40,15 @@ class PollController {
 	public Trigger createNewPoll(@RequestBody String urlencodedData) {
 		final Trigger trigger = triggerAdapter.toTrigger(urlencodedData);
 		logger.info("POST /polls " + trigger);
+
+		if(!pollService.validateTriggerToken(trigger))
+			throw new InvalidTokenException();
+		
+		final Poll poll = pollService.createPollFromTrigger(trigger);
 		
 		return trigger;
 	}
+	
+	@ResponseStatus(BAD_REQUEST)
+	private class InvalidTokenException extends RuntimeException {}
 }
