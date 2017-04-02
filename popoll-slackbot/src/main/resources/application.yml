@@ -1,6 +1,8 @@
 spring:
   application:
     name: popoll-slackbot
+  jackson:
+    property-naming-strategy: SNAKE_CASE
 
 server:
   port: 8080

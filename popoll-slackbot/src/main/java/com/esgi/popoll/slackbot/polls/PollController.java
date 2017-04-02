@@ -29,24 +29,36 @@ class PollController {
 	}
 	
 	@PostMapping(path = "/")
-	public Message appRoot(@RequestBody String urlencodedData) {
+	public Message appRoot(@RequestBody final String urlencodedData) {
 		final Trigger trigger = triggerAdapter.toTrigger(urlencodedData);
 		logger.info("POST / " + trigger);
 		
-		return Message.builder().mrkdwn(true).text("Greetings from the **Popoll** API!").build();
+		return Message.builder().mrkdwn(true).text("Greetings from the *Popoll* API!").build();
 	}
 	
 	@PostMapping(path = "/polls")
-	public Trigger createNewPoll(@RequestBody String urlencodedData) {
+	public Message createNewPoll(@RequestBody final String urlencodedData) {
 		final Trigger trigger = triggerAdapter.toTrigger(urlencodedData);
-		logger.info("POST /polls " + trigger);
 
 		if(!pollService.validateTriggerToken(trigger))
 			throw new InvalidTokenException();
 		
 		final Poll poll = pollService.createPollFromTrigger(trigger);
+		logger.info("POST /polls " + poll);
 		
-		return trigger;
+		final Message message = pollService.createMessageFromPoll(poll);
+		logger.info("POST /polls " + message);
+		
+		return message;
+	}
+	
+	@PostMapping(path = "/polls/vote")
+	public Message handlePollVote(@RequestBody final String urlencodedData) {
+		logger.info("POST /polls/vote " + urlencodedData);
+		final Trigger trigger = triggerAdapter.toTrigger(urlencodedData);
+		logger.info("POST /polls/vote " + trigger);
+		
+		return null;
 	}
 	
 	@ResponseStatus(BAD_REQUEST)
