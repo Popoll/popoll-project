@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: popoll-slackbot
+
+server:
+  port: 8080
+
+info:
+  slack:
+    webhook-url: "https://hooks.slack.com/services/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"
+    client-id: ""
+    client-secret: ""
+    verification-token: ""
