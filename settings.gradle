@@ -2,5 +2,5 @@ rootProject.name = 'popoll-project'
 
 include 'popoll-eureka'
 include 'popoll-config'
-//include 'popoll-slackbot'
+include 'popoll-slackbot'
 include 'popoll-survey'
