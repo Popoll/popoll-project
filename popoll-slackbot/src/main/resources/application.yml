@@ -3,6 +3,9 @@ spring:
     name: popoll-slackbot
   jackson:
     property-naming-strategy: SNAKE_CASE
+  cloud:
+    config:
+      uri: http://localhost:8888
 
 server:
   port: 8080
