@@ -1,0 +1,21 @@
+<div class="container">
+  <h4>
+    <div style="float:right">
+      Author : {{ mock.authorName }}<br />
+      Created: {{ mock.created.toString().substring(0, 16) }}
+    </div>
+    <div style="float:left">
+      Question: {{ mock.question }}<br />
+      Channel : {{ mock.channel }}
+    </div>
+  </h4>
+
+  <div style="display: block">
+    <canvas baseChart
+            chartType="doughnut"
+            [data]="mock.votes"
+            [labels]="mock.answers"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+  </div>
+</div>
