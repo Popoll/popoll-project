@@ -3,6 +3,7 @@ package com.esgi.popoll.slackbot.polls;
 import io.fries.slack.webhook.message.Action;
 import io.fries.slack.webhook.message.Attachment;
 import io.fries.slack.webhook.message.Message;
+import io.fries.slack.webhook.trigger.ActionPayload;
 import io.fries.slack.webhook.trigger.Trigger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,8 @@ class PollServiceImpl implements PollService {
 		
 		final Poll.PollBuilder poll = Poll.builder()
 			.question(triggerParameters[QUESTION_PARAM_INDEX])
-			.author(trigger.getUserName());
+			.author(trigger.getUserName())
+			.channel(trigger.getChannelName());
 		
 		final List<String> answers = new ArrayList<>();
 		answers.addAll(Arrays.asList(triggerParameters).subList(1, triggerParameters.length));
@@ -44,10 +46,17 @@ class PollServiceImpl implements PollService {
 		
 		return poll.build();
 	}
+
+	@Override
+	public Poll persistPoll(final Poll poll) {
+		// TODO: call the survey-service
+		return poll;
+	}
 	
 	@Override
-	public Message createMessageFromPoll(Poll poll) {
+	public Message createMessageFromPoll(final Poll poll) {
 		final String ACTION_TYPE = "button";
+		final String ATTACHMENT_COLOR = "#3AA3E3";
 		
 		if(poll == null)
 			throw new IllegalArgumentException("poll cannot be null");
@@ -55,8 +64,8 @@ class PollServiceImpl implements PollService {
 		return Message.builder()
 			.attachments(Collections.singletonList(
 				Attachment.builder()
-					.callbackId("static_callback_id") // FIXME: use the persisted poll ID as callback ID
-					.color("#3AA3E3")
+					.callbackId(poll.getId())
+					.color(ATTACHMENT_COLOR)
 					.fallback(poll.getQuestion())
 					.title(poll.getQuestion())
 					.authorName(poll.getAuthor())
@@ -71,5 +80,27 @@ class PollServiceImpl implements PollService {
 							).collect(Collectors.toList())
 					).build()
 			)).build();
+	}
+
+	@Override
+	public PollVote createPollVoteFromActionPayload(final ActionPayload actionPayload) {
+		if(actionPayload == null)
+			throw new IllegalArgumentException("actionPayload cannot be null");
+		else if(actionPayload.getActions() == null)
+			throw new IllegalArgumentException("actionPayload actions is null");
+		else if(actionPayload.getActions().isEmpty())
+			throw new IllegalArgumentException("actionPayload actions cannot be empty");
+
+		return PollVote.builder()
+			.surveyId(actionPayload.getCallbackId())
+			.userId(actionPayload.getUser().getId())
+			.answer(actionPayload.getActions().get(0).getValue())
+			.build();
+	}
+
+	@Override
+	public Message persistPollVote(final PollVote pollVote) {
+		// TODO: call the survey-service
+		return Message.builder().text("http://localhost:4200/" + pollVote.getSurveyId()).build();
 	}
 }

@@ -1,11 +1,16 @@
 package com.esgi.popoll.slackbot.polls;
 
+import io.fries.slack.webhook.message.Action;
 import io.fries.slack.webhook.message.Message;
+import io.fries.slack.webhook.trigger.ActionPayload;
 import io.fries.slack.webhook.trigger.Trigger;
+import io.fries.slack.webhook.trigger.User;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -49,7 +54,7 @@ public class PollServiceTest {
 		final Message message = pollService.createMessageFromPoll(poll);
 		
 		assertThat(message.getAttachments()).hasSize(1);
-		assertThat(message.getAttachments().get(0).getCallbackId()).isEqualTo("static_callback_id");
+		assertThat(message.getAttachments().get(0).getCallbackId()).isNull();
 		assertThat(message.getAttachments().get(0).getFallback()).isEqualTo(poll.getQuestion());
 		assertThat(message.getAttachments().get(0).getTitle()).isEqualTo(poll.getQuestion());
 		assertThat(message.getAttachments().get(0).getAuthorName()).isEqualTo(poll.getAuthor());
@@ -59,5 +64,49 @@ public class PollServiceTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldThrowOnCreateMessageFromNull() {
 		pollService.createMessageFromPoll(null);
+	}
+
+	@Test
+	public void shouldCreatePollVoteFromActionPayload() {
+		final String SURVEY_ID = "1234";
+		final String USER_ID = "123ABC";
+		final String ANSWER = "Oui";
+
+		final ActionPayload actionPayload = ActionPayload.builder()
+			.callbackId(SURVEY_ID)
+			.user(User.builder().id(USER_ID).build())
+			.actions(Collections.singletonList(
+				Action.builder().value(ANSWER).build()
+			))
+			.build();
+
+		final PollVote pollVote = pollService.createPollVoteFromActionPayload(actionPayload);
+
+		assertThat(pollVote.getSurveyId()).isEqualTo(SURVEY_ID);
+		assertThat(pollVote.getUserId()).isEqualTo(USER_ID);
+		assertThat(pollVote.getAnswer()).isEqualTo(ANSWER);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldThrowWhenCreatingFromNull() {
+		pollService.createPollVoteFromActionPayload(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldThrowWhenActionPayloadIsNull() {
+		final ActionPayload actionPayload = ActionPayload.builder()
+			.actions(null)
+			.build();
+
+		pollService.createPollVoteFromActionPayload(actionPayload);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldThrowWhenActionPayloadIsEmpty() {
+		final ActionPayload actionPayload = ActionPayload.builder()
+			.actions(new ArrayList<>())
+			.build();
+
+		pollService.createPollVoteFromActionPayload(actionPayload);
 	}
 }

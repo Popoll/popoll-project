@@ -49,10 +49,8 @@ class PollController {
 			throw new InvalidTokenException();
 		
 		final Poll poll = pollService.createPollFromTrigger(trigger);
-		logger.info("POST /polls " + poll);
-		
-		final Message message = pollService.createMessageFromPoll(poll);
-		logger.info("POST /polls " + message);
+		final Poll persistedPoll = pollService.persistPoll(poll);
+		final Message message = pollService.createMessageFromPoll(persistedPoll);
 		
 		return message;
 	}
