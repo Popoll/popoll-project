@@ -23,7 +23,7 @@ public class PollServiceTest {
 	
 	@Before
 	public void initPollService() {
-		this.pollService = new PollServiceImpl();
+		this.pollService = new PollServiceImpl(null);
 	}
 	
 	@Test

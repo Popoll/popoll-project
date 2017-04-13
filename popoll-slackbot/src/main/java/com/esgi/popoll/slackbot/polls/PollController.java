@@ -22,16 +22,15 @@ class PollController {
 	private static final Logger logger = LoggerFactory.getLogger(PollController.class);
 	
 	private final PollService pollService;
-	private final WebHook slackWebHook;
 	private final TriggerAdapter triggerAdapter;
 	private final ActionPayloadAdapter actionPayloadAdapter;
 	
 	public PollController(
-		final PollService pollService, final WebHook slackWebHook,
-		final TriggerAdapter triggerAdapter, final ActionPayloadAdapter actionPayloadAdapter
+		final PollService pollService,
+		final TriggerAdapter triggerAdapter,
+		final ActionPayloadAdapter actionPayloadAdapter
 	) {
 		this.pollService = pollService;
-		this.slackWebHook = slackWebHook;
 		this.triggerAdapter = triggerAdapter;
 		this.actionPayloadAdapter = actionPayloadAdapter;
 	}

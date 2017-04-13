@@ -5,8 +5,11 @@ import io.fries.slack.webhook.message.Attachment;
 import io.fries.slack.webhook.message.Message;
 import io.fries.slack.webhook.trigger.ActionPayload;
 import io.fries.slack.webhook.trigger.Trigger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,10 +18,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RefreshScope
 class PollServiceImpl implements PollService {
-	
+
+	private final RestTemplate restTemplate;
+
 	@Value("${info.slack.verification-token}")
 	private String slackVerificationToken;
+	@Value("${info.services.survey}")
+	private String surveyService;
+
+	@Autowired
+	public PollServiceImpl(final RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+	}
 	
 	@Override
 	public Boolean validateTriggerToken(final Trigger trigger) {
@@ -49,8 +62,15 @@ class PollServiceImpl implements PollService {
 
 	@Override
 	public Poll persistPoll(final Poll poll) {
-		// TODO: call the survey-service
-		return poll;
+		if(surveyService.isEmpty())
+			throw new IllegalStateException("Survey service is unreachable");
+		else if(poll == null)
+			throw new IllegalArgumentException("poll cannot be null");
+
+		final String surveyUrl = surveyService + "/surveys";
+		final Poll persistedPoll = restTemplate.postForObject(surveyUrl, poll, Poll.class);
+
+		return persistedPoll;
 	}
 	
 	@Override
@@ -100,7 +120,16 @@ class PollServiceImpl implements PollService {
 
 	@Override
 	public Message persistPollVote(final PollVote pollVote) {
-		// TODO: call the survey-service
-		return Message.builder().text("http://localhost:4200/" + pollVote.getSurveyId()).build();
+		if(surveyService.isEmpty())
+			throw new IllegalStateException("Survey service is unreachable");
+		else if(pollVote == null)
+			throw new IllegalArgumentException("pollVote cannot be null");
+		else if(pollVote.getSurveyId() == null || pollVote.getSurveyId().isEmpty())
+			throw new IllegalArgumentException("Survey ID cannot be null or empty");
+
+		final String surveyUrl = surveyService + "/surveys/" + pollVote.getSurveyId() + "/vote";
+		final String resultUrl = restTemplate.postForObject(surveyUrl, pollVote, String.class);
+
+		return Message.builder().text(resultUrl).build();
 	}
 }
