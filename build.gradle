@@ -8,6 +8,7 @@ buildscript {
 		springCloudVersion 	= 'Camden.SR6'
 
 		junitVersion 		= '4.12'
+		assertjVersion		= '3.6.2'
 		restAssuredVersion 	= '2.9.0'
 	}
 
@@ -50,6 +51,6 @@ subprojects {
 
 		testCompile "junit:junit:${junitVersion}"
 		testCompile "com.jayway.restassured:rest-assured:${restAssuredVersion}"
-		testCompile 'org.assertj:assertj-core:3.6.2'
+		testCompile "org.assertj:assertj-core:${assertjVersion}"
 	}
 }
