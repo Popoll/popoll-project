@@ -9,7 +9,9 @@ import java.util.List;
 @Builder
 @Data
 class Poll implements Serializable {
+	private final String id;
 	private final String question;
 	private final List<String> answers;
 	private final String author;
+	private final String channel;
 }

@@ -16,3 +16,5 @@ info:
     client-id: ""
     client-secret: ""
     verification-token: "xtZSVP1GVN7ewp54Jzs0Mzv6"
+  services:
+    survey: "SURVEY-SERVICE"

@@ -22,4 +22,9 @@ public class SlackConfig {
 	public TriggerAdapter triggerAdapter() {
 		return new TriggerAdapter();
 	}
+	
+	@Bean
+	public ActionPayloadAdapter actionPayloadAdapter() {
+		return new ActionPayloadAdapter();
+	}
 }
