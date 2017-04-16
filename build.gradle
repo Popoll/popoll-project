@@ -5,9 +5,10 @@ buildscript {
 		projectVersion 		= '0.1-SNAPSHOT'
 
 		springBootVersion 	= '1.5.2.RELEASE'
-		springCloudVersion 	= 'Dalston.BUILD-SNAPSHOT'
+		springCloudVersion 	= 'Camden.SR6'
 
 		junitVersion 		= '4.12'
+		assertjVersion		= '3.6.2'
 		restAssuredVersion 	= '2.9.0'
 	}
 
@@ -43,7 +44,6 @@ subprojects {
 
 	dependencies {
 		compile 'org.springframework.cloud:spring-cloud-starter-config'
-		compile 'org.springframework.cloud:spring-cloud-starter-hystrix'
 		compile 'org.springframework.cloud:spring-cloud-starter-eureka'
 		compile 'org.springframework.boot:spring-boot-starter-actuator'
 
@@ -51,5 +51,6 @@ subprojects {
 
 		testCompile "junit:junit:${junitVersion}"
 		testCompile "com.jayway.restassured:rest-assured:${restAssuredVersion}"
+		testCompile "org.assertj:assertj-core:${assertjVersion}"
 	}
 }
