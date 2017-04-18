@@ -1,0 +1,25 @@
+.row-spaced {
+    margin: 25px 0;
+}
+
+.header-div {
+    height: 10vh;
+}
+
+.round-header {
+    border-radius: 5px;
+}
+
+.canvas-div {
+    height: 80vh;
+    padding: 15px 15px;
+}
+
+.full-height-yalign {
+    height: 100%;
+    padding: 1.5vh 0;
+}
+
+.bordered {
+    border: 1px solid black;
+}

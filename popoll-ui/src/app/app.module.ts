@@ -7,7 +7,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { AppComponent } from './app.component';
 
-import { DoughnutChartDemoComponent } from "./demo/doughnut-chart-demo";
+import { DoughnutChartDemoComponent } from './demo/doughnut-chart-demo';
 
 @NgModule({
   declarations: [
