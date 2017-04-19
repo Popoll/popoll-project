@@ -117,6 +117,11 @@ class PollServiceImpl implements PollService {
 			.answer(actionPayload.getActions().get(0).getValue())
 			.build();
 	}
+	
+	@Override
+	public Boolean validateActionPayloadToken(final ActionPayload actionPayload) {
+		return actionPayload.getToken().equals(slackVerificationToken);
+	}
 
 	@Override
 	public Message persistPollVote(final PollVote pollVote) {
