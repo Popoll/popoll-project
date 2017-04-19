@@ -1,1 +1,38 @@
-<app-doughnut-chart-demo></app-doughnut-chart-demo>
+<!-- Page Content -->
+<div class="container">
+  <div class="row row-spaced">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8 text-center">
+        <div class="col-lg-12 header-div">
+          <div class="col-lg-3 col-xs-3 text-center full-height-yalign round-header"
+                style="background-color:#3E76DD;">
+            <b>Popoll on Channel</b>
+            <br />{{ poll.channel }}
+          </div>
+          <div class="col-lg-6 col-xs-6 text-center full-height-yalign round-header bordered"
+                style="">
+              <b>Question:</b> {{ poll.question }}
+              <br /><b>Created:</b> {{ poll.created.toString().substring(0, 16) }}
+          </div>
+          <div class="col-lg-3 col-xs-3 text-center full-height-yalign round-header"
+                style="background-color:#3E76DD;">
+            <b>Author</b>
+            <br />{{ poll.authorName }}
+          </div>
+        </div>
+
+        <div *ngIf="isDataAvailable" class="col-lg-12 text-center canvas-div">
+          <canvas baseChart
+                  chartType="doughnut"
+                  [colors]="doughnutColors"
+                  [options]="doughnutOptions"
+                  [data]="poll.votes"
+                  [labels]="poll.answers"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+</div>
