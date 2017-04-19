@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { PopollApiService } from './popoll-api.service';
-import { Poll, GeneratePollMock } from './models/poll.model';
+import { Poll, GeneratePollMock } from './poll.model';
 
 @Component({
   selector: 'app-root',
@@ -23,14 +23,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // Define doughnut colors
   // Add [colors]="doughnutColors" on doughnut
-  public doughnutColors: Array<any> = [{
-      backgroundColor: [
-        '#FF7360',
-        '#6FC8CE',
-        '#B9E8E0',
-        '#FAFFF2',
-        '#FFFCC4'
-      ]
+  public defaultColors = [ '#FF7360', '#6FC8CE', '#B9E8E0', '#FAFFF2', '#FFFCC4' ];
+  public adobeGenColors = [ '#930CE8', '#FF0000', '#EB790C', '#125BFF', '#FFE012' ];
+  public doughnutColors: any[] = [{
+      backgroundColor: this.adobeGenColors
   }];
 
   constructor(

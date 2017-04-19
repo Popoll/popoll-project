@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { Poll, GeneratePollMock } from './models/poll.model';
+import { Poll, GeneratePollMock } from './poll.model';
 
 import 'rxjs/add/operator/toPromise';
 

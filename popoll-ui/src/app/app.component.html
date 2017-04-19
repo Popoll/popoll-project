@@ -1,25 +1,21 @@
-<!-- Page Content -->
 <div class="container">
   <div class="row row-spaced">
     <div class="col-lg-2"></div>
     <div class="col-lg-8 text-center">
         <div class="col-lg-12 header-div">
-          <div class="col-lg-3 col-xs-3 text-center full-height-yalign round-header"
-                style="background-color:#3E76DD;">
+          <div class="col-lg-3 col-xs-3 text-center full-height-yalign round-header blue-header">
             <b>Popoll on Channel</b>
             <br />{{ poll.channel }}
           </div>
-          <div class="col-lg-6 col-xs-6 text-center full-height-yalign round-header bordered"
-                style="">
+          <div class="col-lg-6 col-xs-6 text-center full-height-yalign round-header bordered">
               <b>Question:</b> {{ poll.question }}
               <br /><b>Created:</b> {{ poll.created.toString().substring(0, 16) }}
           </div>
-          <div class="col-lg-3 col-xs-3 text-center full-height-yalign round-header"
-                style="background-color:#3E76DD;">
+          <div class="col-lg-3 col-xs-3 text-center full-height-yalign round-header blue-header">
             <b>Author</b>
             <br />{{ poll.authorName }}
           </div>
-        </div>
+        </div> <!-- End header -->
 
         <div *ngIf="isDataAvailable" class="col-lg-12 text-center canvas-div">
           <canvas baseChart
@@ -31,8 +27,8 @@
                   (chartHover)="chartHovered($event)"
                   (chartClick)="chartClicked($event)">
           </canvas>
-        </div>
-    </div>
-    <div class="col-lg-2"></div>
-  </div>
-</div>
+        </div> <!-- End doughnut -->
+    </div> <!-- End main div -->
+    <!--<div class="col-lg-2"></div>-->
+  </div> <!-- End row -->
+</div> <!-- End container -->

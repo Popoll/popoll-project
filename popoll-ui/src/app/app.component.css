@@ -10,6 +10,10 @@
   border-radius: 5px;
 }
 
+.blue-header {
+  background-color: #3E76DD;
+}
+
 .canvas-div {
   height: 80vh;
   padding: 15px 15px;

@@ -22,9 +22,9 @@ export function GeneratePollMock(empty?: boolean): Poll {
     return {
       authorName: 'Vincent Milano',
       question: 'Is that a good question ?',
-      channel: '#testChan',
+      channel: '#TestChan',
       created: new Date(),
-      answers: [ 'Yep', 'Nope', 'Maybe..' ],
+      answers: [ 'Yep', 'Nope', 'Maybe' ],
       votes: [ 42, 1, 12 ]
     };
   }
