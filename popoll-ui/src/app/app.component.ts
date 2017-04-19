@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
+import { environment } from '../environments/environment';
 import { PopollApiService } from './popoll-api.service';
 import { Poll, GeneratePollMock } from './poll.model';
 
@@ -22,7 +23,6 @@ export class AppComponent implements OnInit, OnDestroy {
   };
 
   // Define doughnut colors
-  // Add [colors]="doughnutColors" on doughnut
   public defaultColors = [ '#FF7360', '#6FC8CE', '#B9E8E0', '#FAFFF2', '#FFFCC4' ];
   public adobeGenColors = [ '#930CE8', '#FF0000', '#EB790C', '#125BFF', '#FFE012' ];
   public doughnutColors: any[] = [{
@@ -44,9 +44,9 @@ export class AppComponent implements OnInit, OnDestroy {
           this.poll = res;
           this.isDataAvailable = true;
         })
-        .catch((err: any) => console.error(err));
+        .catch((err: any) => this.handleError(err, 'popoll service request'));
       },
-      (err: any) => console.error(err)
+      (err: any) => this.handleError(err, 'queryParams subscribe')
     );
   }
 
@@ -55,5 +55,12 @@ export class AppComponent implements OnInit, OnDestroy {
   // Doughnut events
   public chartClicked(e: any): void {
     console.log(e);
+  }
+
+  private handleError(err: any, context: string): void {
+    if (environment.enableDebug) {
+      console.error('Error found during ' + context + ' ->');
+      console.error(err);
+    }
   }
 }
