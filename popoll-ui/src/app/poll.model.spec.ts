@@ -16,9 +16,10 @@ describe('Function: GeneratePollMock', () => {
     votes: [ 42, 1, 12 ]
   };
 
-  it('should return a Poll and never null', () => {
+  it('should return a defined Poll and never null', () => {
     const generatedMock = GeneratePollMock();
 
+    expect(generatedMock).toBeDefined();
     expect(generatedMock).not.toBeNull();
     expect(generatedMock.authorName).toBeDefined();
     expect(generatedMock.question).toBeDefined();
