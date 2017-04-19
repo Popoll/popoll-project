@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { AppComponent } from './app.component';
-import { PopollApiService } from "./popoll-api.service";
+import { PopollApiService } from './popoll-api.service';
 
 @NgModule({
   declarations: [ AppComponent ],

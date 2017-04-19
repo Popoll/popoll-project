@@ -43,7 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams
     .subscribe(
       (params: Params) => {
-        this.popollService.getPoll(params["ppid"])
+        this.popollService.getPoll(params['ppid'])
         .then((res: Poll) => {
           this.poll = res;
           this.isDataAvailable = true;
@@ -51,17 +51,13 @@ export class AppComponent implements OnInit, OnDestroy {
         .catch((err: any) => console.error(err));
       },
       (err: any) => console.error(err)
-    )
+    );
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {} // In order to unsubscribe automatically to queryParams
 
   // Doughnut events
   public chartClicked(e: any): void {
-    console.log(e);
-  }
-
-  public chartHovered(e: any): void {
     console.log(e);
   }
 }
