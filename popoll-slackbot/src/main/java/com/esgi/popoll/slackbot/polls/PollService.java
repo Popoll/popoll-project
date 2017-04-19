@@ -11,5 +11,6 @@ interface PollService {
 	Message createMessageFromPoll(final Poll poll);
 
 	PollVote createPollVoteFromActionPayload(final ActionPayload actionPayload);
+	Boolean validateActionPayloadToken(final ActionPayload actionPayload);
 	Message persistPollVote(final PollVote pollVote);
 }
