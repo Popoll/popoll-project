@@ -6,3 +6,4 @@ include 'popoll-zuul'
 
 include 'popoll-slackbot'
 include 'popoll-survey'
+include 'popoll-websocket'
