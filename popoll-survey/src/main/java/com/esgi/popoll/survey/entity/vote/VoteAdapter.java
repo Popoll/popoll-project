@@ -1,4 +1,4 @@
-package com.esgi.popoll.survey.vote;
+package com.esgi.popoll.survey.entity.vote;
 
 import org.springframework.stereotype.Component;
 

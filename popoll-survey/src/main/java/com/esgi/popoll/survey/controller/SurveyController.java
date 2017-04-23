@@ -3,8 +3,8 @@ package com.esgi.popoll.survey.controller;
 import com.esgi.popoll.survey.service.SurveyService;
 import com.esgi.popoll.survey.exception.InvalidSurveyException;
 import com.esgi.popoll.survey.exception.InvalidVoteException;
-import com.esgi.popoll.survey.survey.SurveyDto;
-import com.esgi.popoll.survey.vote.VoteDto;
+import com.esgi.popoll.survey.entity.survey.SurveyDto;
+import com.esgi.popoll.survey.entity.vote.VoteDto;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 

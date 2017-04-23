@@ -1,6 +1,6 @@
-package com.esgi.popoll.survey.survey;
+package com.esgi.popoll.survey.entity.survey;
 
-import com.esgi.popoll.survey.vote.Vote;
+import com.esgi.popoll.survey.entity.vote.Vote;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;

@@ -1,27 +1,23 @@
-package com.esgi.popoll.survey.vote;
+package com.esgi.popoll.survey.entity.vote;
 
 import lombok.*;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-@Entity
 @Builder
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "vote")
-public class Vote {
+public class VoteDto {
 
-    @Id
-    @GeneratedValue
     private Long id;
 
-    @Column
+    @NotNull
     private Long surveyId;
 
-    @Column
+    @NotNull
     private Integer userId;
 
-    @Column
+    @NotNull
     private String answer;
 }

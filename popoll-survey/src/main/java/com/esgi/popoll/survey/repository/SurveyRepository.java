@@ -1,6 +1,6 @@
 package com.esgi.popoll.survey.repository;
 
-import com.esgi.popoll.survey.survey.Survey;
+import com.esgi.popoll.survey.entity.survey.Survey;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

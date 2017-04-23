@@ -3,29 +3,37 @@ package com.esgi.popoll.survey.service;
 import com.esgi.popoll.survey.exception.NotFoundSurveyException;
 import com.esgi.popoll.survey.repository.SurveyRepository;
 import com.esgi.popoll.survey.repository.VoteRepository;
-import com.esgi.popoll.survey.survey.SurveyAdapter;
-import com.esgi.popoll.survey.survey.SurveyDto;
-import com.esgi.popoll.survey.vote.VoteAdapter;
-import com.esgi.popoll.survey.vote.VoteDto;
+import com.esgi.popoll.survey.entity.survey.SurveyAdapter;
+import com.esgi.popoll.survey.entity.survey.SurveyDto;
+import com.esgi.popoll.survey.entity.vote.VoteAdapter;
+import com.esgi.popoll.survey.entity.vote.VoteDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 @Transactional
 public class SurveyServiceImpl implements SurveyService {
 
     private final SurveyRepository surveyRepository;
+    private final VoteRepository voteRepository;
     private final SurveyAdapter surveyAdapter;
     private final VoteAdapter voteAdapter;
-    private final VoteRepository voteRepository;
+    private final RestTemplate restTemplate;
+
+    @Value("{info.services.websocket}")
+    private String webSocketServiceUrl;
 
     public SurveyServiceImpl(final SurveyRepository surveyRepository, final SurveyAdapter surveyAdapter,
-                             final VoteAdapter voteAdapter, final VoteRepository voteRepository)
+                             final VoteAdapter voteAdapter, final VoteRepository voteRepository,
+                             final RestTemplate restTemplate)
     {
         this.surveyRepository = surveyRepository;
         this.surveyAdapter = surveyAdapter;
         this.voteAdapter = voteAdapter;
         this.voteRepository = voteRepository;
+        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -47,5 +55,10 @@ public class SurveyServiceImpl implements SurveyService {
         final SurveyDto surveyDto = getSurveyById(id);
         voteDto.setSurveyId(surveyDto.getId());
         return voteAdapter.toVoteDto(voteRepository.save(voteAdapter.toVote(voteDto)));
+    }
+
+    @Override
+    public void sendSurveyToWebsocket(final SurveyDto surveyDto) {
+        restTemplate.postForObject(webSocketServiceUrl, surveyDto, null);
     }
 }
