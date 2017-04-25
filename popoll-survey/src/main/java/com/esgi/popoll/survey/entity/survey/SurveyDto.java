@@ -1,6 +1,8 @@
 package com.esgi.popoll.survey.entity.survey;
 
+import com.esgi.popoll.survey.entity.answer.AnswerDto;
 import com.esgi.popoll.survey.entity.vote.Vote;
+import com.esgi.popoll.survey.entity.vote.VoteDto;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
@@ -18,14 +20,14 @@ public class SurveyDto {
         private String question;
 
         @NotNull
-        private String answer;
-
-        @NotNull
         private String author;
 
         @NotNull
         private String channel;
 
         @NotNull
-        private List<Vote> votes;
+        private List<AnswerDto> answers;
+
+        @NotNull
+        private List<VoteDto> votes;
 }

@@ -1,12 +1,6 @@
 spring:
   application:
      name: popoll-survey
-  #cloud:
-    #config:
-      #uri: http://localhost:8888
-server:
-  port: 8081
-
-info:
-  services:
-    websocket: "http://popoll-websocket"
+  cloud:
+    config:
+      uri: http://localhost:8888

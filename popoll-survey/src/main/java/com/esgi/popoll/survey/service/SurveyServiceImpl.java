@@ -46,14 +46,14 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public SurveyDto createSurvey(final SurveyDto dto) {
+
+
         return surveyAdapter.toSurveyDto(surveyRepository.save(surveyAdapter.toSurvey(dto)));
     }
 
     @Override
     public VoteDto addVoteInSurvey(final Long id, final VoteDto voteDto) {
-
-        final SurveyDto surveyDto = getSurveyById(id);
-        voteDto.setSurveyId(surveyDto.getId());
+        getSurveyById(id);
         return voteAdapter.toVoteDto(voteRepository.save(voteAdapter.toVote(voteDto)));
     }
 

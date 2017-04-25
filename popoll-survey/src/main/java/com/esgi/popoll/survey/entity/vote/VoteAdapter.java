@@ -1,26 +1,35 @@
 package com.esgi.popoll.survey.entity.vote;
 
+import com.esgi.popoll.survey.entity.answer.AnswerAdapter;
+import com.esgi.popoll.survey.entity.survey.SurveyAdapter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+@Setter
 @Component
 public class VoteAdapter {
+
+    private SurveyAdapter surveyAdapter;
+    private AnswerAdapter answerAdapter;
 
     public VoteDto toVoteDto(final Vote vote) {
         return vote != null
             ? VoteDto.builder()
                 .id(vote.getId())
-                .surveyId(vote.getSurveyId())
+                .surveyId(surveyAdapter.toSurveyDto(vote.getSurveyId()))
                 .userId(vote.getUserId())
-                .answer(vote.getAnswer()).build()
+                .answerId(answerAdapter.toAnswerDto(vote.getAnswerId()))
+                .build()
             : null;
     }
     public Vote toVote(final VoteDto voteDto) {
         return voteDto != null
             ? Vote.builder()
             .id(voteDto.getId())
-            .surveyId(voteDto.getSurveyId())
+            .surveyId(surveyAdapter.toSurvey(voteDto.getSurveyId()))
             .userId(voteDto.getUserId())
-            .answer(voteDto.getAnswer()).build()
+            .answerId(answerAdapter.toAnswer(voteDto.getAnswerId()))
+            .build()
         : null;
     }
 }

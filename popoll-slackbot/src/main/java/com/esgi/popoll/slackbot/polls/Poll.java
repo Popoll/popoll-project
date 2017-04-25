@@ -11,7 +11,7 @@ import java.util.List;
 class Poll implements Serializable {
 	private final String id;
 	private final String question;
-	private final List<String> answers;
+	private final List<PollAnswer> answers;
 	private final String author;
 	private final String channel;
 }

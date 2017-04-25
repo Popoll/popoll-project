@@ -1,8 +1,12 @@
 package com.esgi.popoll.survey.entity.vote;
 
+import com.esgi.popoll.survey.entity.answer.Answer;
+import com.esgi.popoll.survey.entity.survey.Survey;
 import lombok.*;
 
 import javax.persistence.*;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Builder
@@ -16,12 +20,14 @@ public class Vote {
     @GeneratedValue
     private Long id;
 
-    @Column
-    private Long surveyId;
+    @OneToOne(fetch = LAZY)
+    @JoinColumn
+    private Survey surveyId;
 
     @Column
-    private Integer userId;
+    private String userId;
 
-    @Column
-    private String answer;
+    @OneToOne(fetch = LAZY)
+    @JoinColumn
+    private Answer answerId;
 }

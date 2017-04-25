@@ -1,10 +1,13 @@
 package com.esgi.popoll.survey.entity.survey;
 
+import com.esgi.popoll.survey.entity.answer.Answer;
 import com.esgi.popoll.survey.entity.vote.Vote;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Builder
@@ -22,14 +25,14 @@ public class Survey {
     private String question;
 
     @Column
-    private String answer;
-
-    @Column
     private String author;
 
     @Column
     private String channel;
 
-    @OneToMany
+    @OneToMany(fetch = LAZY)
+    private List<Answer> answers;
+
+    @OneToMany(fetch = LAZY)
     private List<Vote> votes;
 }

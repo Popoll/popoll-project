@@ -11,11 +11,10 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @RefreshScope
@@ -26,7 +25,9 @@ class PollServiceImpl implements PollService {
 	@Value("${info.slack.verification-token}")
 	private String slackVerificationToken;
 	@Value("${info.services.survey}")
-	private String surveyService;
+	private String surveyServiceUrl;
+	@Value("${info.services.ui}")
+	private String uiServiceUrl;
 
 	@Autowired
 	public PollServiceImpl(final RestTemplate restTemplate) {
@@ -47,27 +48,23 @@ class PollServiceImpl implements PollService {
 		
 		final String triggerText = trigger.getText();
 		final String[] triggerParameters = triggerText.substring(1, triggerText.length() - 1).split("\" \"");
-		
-		final Poll.PollBuilder poll = Poll.builder()
+
+		return Poll.builder()
 			.question(triggerParameters[QUESTION_PARAM_INDEX])
 			.author(trigger.getUserName())
-			.channel(trigger.getChannelName());
-		
-		final List<String> answers = new ArrayList<>();
-		answers.addAll(Arrays.asList(triggerParameters).subList(1, triggerParameters.length));
-		poll.answers(answers);
-		
-		return poll.build();
+			.channel(trigger.getChannelName())
+			.answers(Arrays.asList(triggerParameters).subList(1, triggerParameters.length).stream().map(PollAnswer::new).collect(toList()))
+			.build();
 	}
 
 	@Override
 	public Poll persistPoll(final Poll poll) {
-		if(surveyService.isEmpty())
+		if(surveyServiceUrl.isEmpty())
 			throw new IllegalStateException("Survey service is unreachable");
 		else if(poll == null)
 			throw new IllegalArgumentException("poll cannot be null");
 
-		final String surveyUrl = surveyService + "/surveys";
+		final String surveyUrl = surveyServiceUrl + "/surveys";
 		final Poll persistedPoll = restTemplate.postForObject(surveyUrl, poll, Poll.class);
 
 		return persistedPoll;
@@ -92,12 +89,12 @@ class PollServiceImpl implements PollService {
 					.actions(
 						poll.getAnswers().stream()
 							.map(answer -> Action.builder()
-								.name(answer)
-								.text(answer)
-								.value(answer)
+								.name(answer.getAnswer())
+								.text(answer.getAnswer())
+								.value(answer.getAnswer())
 								.type(ACTION_TYPE)
 								.build()
-							).collect(Collectors.toList())
+							).collect(toList())
 					).build()
 			)).build();
 	}
@@ -125,15 +122,17 @@ class PollServiceImpl implements PollService {
 
 	@Override
 	public Message persistPollVote(final PollVote pollVote) {
-		if(surveyService.isEmpty())
+		if(surveyServiceUrl.isEmpty())
 			throw new IllegalStateException("Survey service is unreachable");
 		else if(pollVote == null)
 			throw new IllegalArgumentException("pollVote cannot be null");
 		else if(pollVote.getSurveyId() == null || pollVote.getSurveyId().isEmpty())
 			throw new IllegalArgumentException("Survey ID cannot be null or empty");
 
-		final String surveyUrl = surveyService + "/surveys/" + pollVote.getSurveyId() + "/vote";
-		final String resultUrl = restTemplate.postForObject(surveyUrl, pollVote, String.class);
+		final String surveyUrl = surveyServiceUrl + "/surveys/" + pollVote.getSurveyId() + "/vote";
+		restTemplate.postForObject(surveyUrl, pollVote, PollVote.class);
+
+		final String resultUrl = uiServiceUrl + "/" + pollVote.getSurveyId();
 
 		return Message.builder().text(resultUrl).build();
 	}
