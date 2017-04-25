@@ -34,9 +34,9 @@ public class PollServiceTest {
 		
 		assertThat(poll.getQuestion()).isEqualTo("Question");
 		assertThat(poll.getAnswers()).containsExactlyInAnyOrder(
-			"Answer 1",
-			"Answer 2",
-			"Answer 3"
+			PollAnswer.builder().answer("Answer 1").build(),
+			PollAnswer.builder().answer("Answer 2").build(),
+			PollAnswer.builder().answer("Answer 3").build()
 		);
 		assertThat(poll.getAuthor()).isEqualTo(AUTHOR);
 	}
@@ -49,7 +49,9 @@ public class PollServiceTest {
 	@Test
 	public void shouldCreateMessageFromPoll() {
 		final Poll poll = Poll.builder().author(AUTHOR).question("Question").answers(Arrays.asList(
-			"Answer 1", "Answer 2", "Answer 3"
+			PollAnswer.builder().answer("Answer 1").build(),
+			PollAnswer.builder().answer("Answer 2").build(),
+			PollAnswer.builder().answer("Answer 3").build()
 		)).build();
 		final Message message = pollService.createMessageFromPoll(poll);
 		
