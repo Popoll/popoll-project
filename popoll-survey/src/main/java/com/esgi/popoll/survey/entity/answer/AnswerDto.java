@@ -16,6 +16,5 @@ public class AnswerDto {
 	@NotNull
 	private String answer;
 
-	@NotNull
 	private SurveyDto surveyId;
 }

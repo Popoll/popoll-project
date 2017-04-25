@@ -1,17 +1,21 @@
 package com.esgi.popoll.slackbot.polls;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
 
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 class Poll implements Serializable {
-	private final String id;
-	private final String question;
-	private final List<PollAnswer> answers;
-	private final String author;
-	private final String channel;
+	private String id;
+	private String question;
+	private List<PollAnswer> answers;
+	private String author;
+	private String channel;
 }

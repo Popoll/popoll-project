@@ -1,7 +1,6 @@
 package com.esgi.popoll.survey.entity.survey;
 
 import com.esgi.popoll.survey.entity.answer.AnswerDto;
-import com.esgi.popoll.survey.entity.vote.Vote;
 import com.esgi.popoll.survey.entity.vote.VoteDto;
 import lombok.*;
 
@@ -28,6 +27,5 @@ public class SurveyDto {
         @NotNull
         private List<AnswerDto> answers;
 
-        @NotNull
         private List<VoteDto> votes;
 }

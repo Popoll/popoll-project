@@ -7,6 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -30,9 +31,9 @@ public class Survey {
     @Column
     private String channel;
 
-    @OneToMany(fetch = LAZY)
+    @OneToMany(fetch = LAZY, cascade = ALL)
     private List<Answer> answers;
 
-    @OneToMany(fetch = LAZY)
+    @OneToMany(fetch = LAZY, cascade = ALL)
     private List<Vote> votes;
 }

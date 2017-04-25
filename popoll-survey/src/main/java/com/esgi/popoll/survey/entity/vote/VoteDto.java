@@ -21,5 +21,5 @@ public class VoteDto {
     private String userId;
 
     @NotNull
-    private AnswerDto answerId;
+    private AnswerDto answer;
 }
