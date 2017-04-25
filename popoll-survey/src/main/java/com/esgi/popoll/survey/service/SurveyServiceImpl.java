@@ -1,8 +1,6 @@
 package com.esgi.popoll.survey.service;
 
 import com.esgi.popoll.survey.entity.answer.Answer;
-import com.esgi.popoll.survey.entity.answer.AnswerAdapter;
-import com.esgi.popoll.survey.entity.answer.AnswerDto;
 import com.esgi.popoll.survey.entity.survey.Survey;
 import com.esgi.popoll.survey.entity.survey.SurveyAdapter;
 import com.esgi.popoll.survey.entity.survey.SurveyDto;
@@ -51,14 +49,21 @@ public class SurveyServiceImpl implements SurveyService {
     public SurveyDto createSurvey(final SurveyDto surveyDto) {
         // PB en BDD answer survey_id null
         return SurveyAdapter.toSurveyDto(surveyRepository.save(SurveyAdapter.toSurvey(surveyDto)));
-    }
 
-    @Override
-    public AnswerDto addAnswerInSurvey(final Long id, final AnswerDto answerDto) {
-        final SurveyDto surveyDto = getSurveyById(id);
-        answerDto.setSurveyId(surveyDto);
+        /*
+        final List<AnswerDto> answerDtoList = surveyDto.getAnswers();
+        surveyDto.setAnswers(new ArrayList());
 
-        return AnswerAdapter.toAnswerDto(answerRepository.save(AnswerAdapter.toAnswer(answerDto)));
+        SurveyDto savedSurvey = SurveyAdapter.toSurveyDto(surveyRepository.save(SurveyAdapter.toSurvey(surveyDto)));
+
+        for (final AnswerDto answerDto : answerDtoList) {
+            answerDto.setSurveyId(savedSurvey);
+            answerRepository.save(AnswerAdapter.toAnswer(answerDto));
+        }
+
+        savedSurvey.setAnswers(answerDtoList);
+        return savedSurvey;
+         */
     }
 
     @Override
