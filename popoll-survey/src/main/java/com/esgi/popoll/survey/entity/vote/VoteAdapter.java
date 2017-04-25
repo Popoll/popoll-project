@@ -1,7 +1,7 @@
 package com.esgi.popoll.survey.entity.vote;
 
-import com.esgi.popoll.survey.entity.answer.AnswerAdapter;
-import com.esgi.popoll.survey.entity.survey.SurveyAdapter;
+import com.esgi.popoll.survey.entity.answer.Answer;
+import com.esgi.popoll.survey.entity.survey.Survey;
 
 public class VoteAdapter {
 
@@ -9,19 +9,21 @@ public class VoteAdapter {
         return vote != null
             ? VoteDto.builder()
                 .id(vote.getId())
-                .surveyId(SurveyAdapter.toSurveyDto(vote.getSurveyId()))
+                .surveyId(Long.toString(vote.getSurveyId().getId()))
                 .userId(vote.getUserId())
-                .answer(AnswerAdapter.toAnswerDto(vote.getAnswerId()))
+                .answer(vote.getAnswerId().getAnswer())
                 .build()
             : null;
     }
-    public static Vote toVote(final VoteDto voteDto) {
+    public static Vote toVote(final VoteDto voteDto, final Survey survey,
+                              final Answer answer) {
+
         return voteDto != null
             ? Vote.builder()
             .id(voteDto.getId())
-            .surveyId(SurveyAdapter.toSurvey(voteDto.getSurveyId()))
+            .surveyId(survey)
             .userId(voteDto.getUserId())
-            .answerId(AnswerAdapter.toAnswer(voteDto.getAnswer()))
+            .answerId(answer)
             .build()
         : null;
     }

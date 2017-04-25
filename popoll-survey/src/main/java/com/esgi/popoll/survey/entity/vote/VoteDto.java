@@ -1,13 +1,11 @@
 package com.esgi.popoll.survey.entity.vote;
 
-import com.esgi.popoll.survey.entity.answer.AnswerDto;
-import com.esgi.popoll.survey.entity.survey.SurveyDto;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
 
 @Builder
-@Getter @Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class VoteDto {
@@ -15,11 +13,11 @@ public class VoteDto {
     private Long id;
 
     @NotNull
-    private SurveyDto surveyId;
+    private String surveyId;
 
     @NotNull
     private String userId;
 
     @NotNull
-    private AnswerDto answer;
+    private String answer;
 }

@@ -1,5 +1,6 @@
 package com.esgi.popoll.survey.controller;
 
+import com.esgi.popoll.survey.entity.answer.AnswerDto;
 import com.esgi.popoll.survey.service.SurveyService;
 import com.esgi.popoll.survey.exception.InvalidSurveyException;
 import com.esgi.popoll.survey.exception.InvalidVoteException;
@@ -31,6 +32,17 @@ public class SurveyController {
             throw new InvalidSurveyException();
 
         return surveyService.createSurvey(surveyDto);
+    }
+
+    @PostMapping("{id}/answer")
+    @ResponseStatus(CREATED)
+    public AnswerDto addAnswer(@PathVariable final Long id, @Valid @RequestBody final AnswerDto answerDto,
+                               final BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors())
+            throw new InvalidSurveyException();
+
+        return surveyService.addAnswerInSurvey(id, answerDto);
     }
 
     @PostMapping("{id}/vote")

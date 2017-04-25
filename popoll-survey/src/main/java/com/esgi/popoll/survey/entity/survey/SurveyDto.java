@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Builder
-@Getter @Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class SurveyDto {

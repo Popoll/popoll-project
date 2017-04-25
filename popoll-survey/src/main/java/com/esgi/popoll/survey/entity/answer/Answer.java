@@ -1,17 +1,18 @@
 package com.esgi.popoll.survey.entity.answer;
 
 import com.esgi.popoll.survey.entity.survey.Survey;
-import com.esgi.popoll.survey.entity.vote.Vote;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Builder
-@Getter @Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "answer")

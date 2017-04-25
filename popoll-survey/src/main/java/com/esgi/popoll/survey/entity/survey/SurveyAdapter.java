@@ -3,6 +3,8 @@ package com.esgi.popoll.survey.entity.survey;
 import com.esgi.popoll.survey.entity.answer.AnswerAdapter;
 import com.esgi.popoll.survey.entity.vote.VoteAdapter;
 
+import java.util.ArrayList;
+
 import static java.util.stream.Collectors.toList;
 
 public class SurveyAdapter {
@@ -23,7 +25,7 @@ public class SurveyAdapter {
         return surveyDto != null
             ? Survey.builder()
             .id(surveyDto.getId())
-            .votes(surveyDto.getVotes().stream().map(VoteAdapter::toVote).collect(toList()))
+            .votes(new ArrayList())
             .question(surveyDto.getQuestion())
             .answers(surveyDto.getAnswers().stream().map(AnswerAdapter::toAnswer).collect(toList()))
             .author(surveyDto.getAuthor())

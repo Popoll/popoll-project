@@ -6,7 +6,7 @@ import lombok.*;
 import javax.validation.constraints.NotNull;
 
 @Builder
-@Getter @Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnswerDto {
