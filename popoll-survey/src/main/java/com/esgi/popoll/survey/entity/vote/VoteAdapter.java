@@ -9,7 +9,7 @@ public class VoteAdapter {
         return vote != null
             ? VoteDto.builder()
                 .id(vote.getId())
-                .surveyId(Long.toString(vote.getSurvey().getId()))
+                //.surveyId(Long.toString(vote.getSurvey().getId()))
                 .userId(vote.getUserId())
                 .answer(vote.getAnswer().getAnswer())
                 .build()
