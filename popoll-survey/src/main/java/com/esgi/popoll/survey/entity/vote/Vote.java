@@ -7,6 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 
 import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Builder
@@ -17,7 +18,7 @@ import static javax.persistence.FetchType.LAZY;
 public class Vote {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @OneToOne(fetch = LAZY)
