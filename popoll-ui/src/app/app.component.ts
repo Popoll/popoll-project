@@ -53,10 +53,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {} // In order to unsubscribe automatically to queryParams
 
   // Doughnut events
-  public chartClicked(e: any): void {
-    console.log(e);
-  }
-
   private handleError(err: any, context: string): void {
     if (environment.enableDebug) {
       console.error('Error found during ' + context + ' ->');
