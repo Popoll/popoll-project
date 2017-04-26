@@ -9,9 +9,9 @@ public class VoteAdapter {
         return vote != null
             ? VoteDto.builder()
                 .id(vote.getId())
-                .surveyId(Long.toString(vote.getSurveyId().getId()))
+                .surveyId(Long.toString(vote.getSurvey().getId()))
                 .userId(vote.getUserId())
-                .answer(vote.getAnswerId().getAnswer())
+                .answer(vote.getAnswer().getAnswer())
                 .build()
             : null;
     }
@@ -21,9 +21,9 @@ public class VoteAdapter {
         return voteDto != null
             ? Vote.builder()
             .id(voteDto.getId())
-            .surveyId(survey)
+            .survey(survey)
             .userId(voteDto.getUserId())
-            .answerId(answer)
+            .answer(answer)
             .build()
         : null;
     }

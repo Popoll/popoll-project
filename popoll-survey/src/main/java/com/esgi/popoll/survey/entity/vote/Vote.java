@@ -22,12 +22,12 @@ public class Vote {
 
     @OneToOne(fetch = LAZY)
     @JoinColumn
-    private Survey surveyId;
+    private Survey survey;
 
     @Column
     private String userId;
 
     @OneToOne(fetch = LAZY)
     @JoinColumn
-    private Answer answerId;
+    private Answer answer;
 }

@@ -9,7 +9,7 @@ public class AnswerAdapter {
 			? AnswerDto.builder()
 			.id(answer.getId())
 			.answer(answer.getAnswer())
-			.surveyId(SurveyAdapter.toSurveyDto(answer.getSurveyId()))
+			.survey(SurveyAdapter.toSurveyDto(answer.getSurvey()))
 			.build()
 		: null;
 	}
@@ -19,7 +19,7 @@ public class AnswerAdapter {
 			? Answer.builder()
 			.id(answerDto.getId())
 			.answer(answerDto.getAnswer())
-			.surveyId(SurveyAdapter.toSurvey(answerDto.getSurveyId()))
+			.survey(SurveyAdapter.toSurvey(answerDto.getSurvey()))
 			.build()
 		: null;
 	}

@@ -27,5 +27,5 @@ public class Answer {
 
 	@OneToOne(fetch = LAZY)
 	@JoinColumn
-	private Survey surveyId;
+	private Survey survey;
 }

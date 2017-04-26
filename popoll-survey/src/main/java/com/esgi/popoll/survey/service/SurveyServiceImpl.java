@@ -57,7 +57,7 @@ public class SurveyServiceImpl implements SurveyService {
         SurveyDto savedSurvey = SurveyAdapter.toSurveyDto(surveyRepository.save(SurveyAdapter.toSurvey(surveyDto)));
 
         for (final AnswerDto answerDto : answerDtoList) {
-            answerDto.setSurveyId(savedSurvey);
+            answerDto.setSurvey(savedSurvey);
             answerRepository.save(AnswerAdapter.toAnswer(answerDto));
         }
 
@@ -69,7 +69,6 @@ public class SurveyServiceImpl implements SurveyService {
     @Override
     public VoteDto addVoteInSurvey(final Long id, final VoteDto voteDto) {
 
-        System.out.println(voteDto);
         final Survey survey = surveyRepository.findById(id).orElseThrow(NotFoundSurveyException::new);
         final Answer answer = answerRepository.findAnswerByAnswerAndSurveyId(
             voteDto.getAnswer(), survey
