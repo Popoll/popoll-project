@@ -1,6 +1,8 @@
 package com.esgi.popoll.survey.service;
 
 import com.esgi.popoll.survey.entity.answer.Answer;
+import com.esgi.popoll.survey.entity.answer.AnswerAdapter;
+import com.esgi.popoll.survey.entity.answer.AnswerDto;
 import com.esgi.popoll.survey.entity.survey.Survey;
 import com.esgi.popoll.survey.entity.survey.SurveyAdapter;
 import com.esgi.popoll.survey.entity.survey.SurveyDto;
@@ -15,6 +17,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -47,10 +52,7 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public SurveyDto createSurvey(final SurveyDto surveyDto) {
-        // PB en BDD answer survey_id null
-        return SurveyAdapter.toSurveyDto(surveyRepository.save(SurveyAdapter.toSurvey(surveyDto)));
 
-        /*
         final List<AnswerDto> answerDtoList = surveyDto.getAnswers();
         surveyDto.setAnswers(new ArrayList());
 
@@ -59,18 +61,23 @@ public class SurveyServiceImpl implements SurveyService {
         for (final AnswerDto answerDto : answerDtoList) {
             answerDto.setSurvey(savedSurvey);
             answerRepository.save(AnswerAdapter.toAnswer(answerDto));
+            answerDto.setSurvey(null);
         }
 
         savedSurvey.setAnswers(answerDtoList);
         return savedSurvey;
-         */
     }
 
     @Override
     public VoteDto addVoteInSurvey(final Long id, final VoteDto voteDto) {
 
         final Survey survey = surveyRepository.findById(id).orElseThrow(NotFoundSurveyException::new);
-        final Answer answer = answerRepository.findAnswerByAnswerAndSurveyId(
+
+        voteRepository.findUserVote(survey, voteDto.getUserId()).ifPresent(req -> {
+            throw new InvalidVoteException("You have already voted!");
+        });
+
+        final Answer answer = answerRepository.findAnswer(
             voteDto.getAnswer(), survey
         ).orElseThrow(InvalidVoteException::new);
 
