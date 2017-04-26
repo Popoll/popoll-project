@@ -32,9 +32,9 @@ public class Survey {
     @Column
     private String channel;
 
-    @OneToMany(fetch = LAZY, cascade = ALL)
+    @OneToMany(fetch = LAZY, mappedBy = "survey", cascade = ALL)
     private List<Answer> answers;
 
-    @OneToMany(fetch = LAZY, cascade = ALL)
+    @OneToMany(fetch = LAZY, mappedBy = "survey", cascade = ALL)
     private List<Vote> votes;
 }
