@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static io.fries.slack.webhook.message.Message.ResponseType.IN_CHANNEL;
+import static io.fries.slack.webhook.message.Message.ResponseType.in_channel;
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -80,7 +80,7 @@ class PollServiceImpl implements PollService {
 			throw new IllegalArgumentException("poll cannot be null");
 		
 		return Message.builder()
-			.responseType(IN_CHANNEL)
+			.responseType(in_channel)
 			.attachments(Collections.singletonList(
 				Attachment.builder()
 					.callbackId(poll.getId())

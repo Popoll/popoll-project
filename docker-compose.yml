@@ -1,0 +1,42 @@
+version: '3'
+
+networks:
+  popoll-network:
+
+services:
+  docker-popoll-config:
+    build: ./popoll-config
+    image: popoll-config:latest
+    restart: always
+    ports:
+      - "8888:8888"
+  docker-popoll-eureka:
+      build: ./popoll-eureka
+      image: popoll-eureka:latest
+      restart: always
+      ports:
+        - "8000:8000"
+  docker-popoll-zuul:
+    build: ./popoll-zuul
+    image: popoll-zuul:latest
+    restart: always
+    ports:
+      - "8001:8001"
+  docker-popoll-survey:
+    build: ./popoll-survey
+    image: popoll-survey:latest
+    restart: always
+    ports:
+      - "8002:8080"
+  docker-popoll-slackbot:
+    build: ./popoll-slackbot
+    image: popoll-slackbot:latest
+    restart: always
+    ports:
+      - "8003:8080"
+  docker-popoll-ui:
+    build: ./popoll-ui
+    image: popoll-ui:latest
+    restart: always
+    ports:
+      - "9090:80"
