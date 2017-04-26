@@ -16,13 +16,13 @@ export class PopollApiService {
 
   public getPoll(ppid: number | undefined): Promise<Poll> {
     // No ppid when first load on app.component Observable - Do not log error
-    if (undefined === ppid) return Promise.resolve(GeneratePollMock());
+    if (undefined === ppid) return Promise.resolve(GeneratePollMock(true));
 
     if (environment.enableDebug) console.log('ppid: ' + ppid);
 
     return this.http.get(this.apiUrl + '/surveys/' + ppid)
           .toPromise()
-          .then((res: any) => toPoll(res.json() as PollAdapter) as Poll)
+          .then((res: any) => toPoll(res.json() as PollAdapter))
           .catch((err: any) => this.handleError(err));
   }
 

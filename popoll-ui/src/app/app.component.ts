@@ -14,7 +14,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // Doughnut datas
   public isDataAvailable = false;
-  public poll = GeneratePollMock(true); // Empty mock for chart init
+  public poll: Poll = GeneratePollMock(true); // Empty mock for chart init
 
   // Allow chart resizing
   public doughnutOptions: any = {
@@ -39,12 +39,16 @@ export class AppComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams
     .subscribe(
       (params: Params) => {
-        this.popollService.getPoll(params['ppid'])
-        .then((res: Poll) => {
-          this.poll = res;
-          this.isDataAvailable = true;
-        })
-        .catch((err: any) => this.handleError(err, 'popoll service request'));
+        if (params['ppid']) {
+          this.popollService.getPoll(params['ppid'])
+            .then((res: Poll) => {
+              if (environment.enableDebug) console.log(res);
+
+              this.poll = res;
+              this.isDataAvailable = true;
+            })
+            .catch((err: any) => this.handleError(err, 'popoll service request'));
+        }
       },
       (err: any) => this.handleError(err, 'queryParams subscribe')
     );
