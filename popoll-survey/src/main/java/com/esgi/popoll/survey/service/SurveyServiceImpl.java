@@ -44,10 +44,8 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     @Transactional(readOnly = true)
-    public SurveyDto getSurveyById(final Long id) {
-        return SurveyAdapter.toSurveyDto(
-            surveyRepository.findById(id).orElseThrow(NotFoundSurveyException::new)
-        );
+    public Survey getSurveyById(final Long id) {
+        return surveyRepository.findOne(id);
     }
 
     @Override

@@ -2,7 +2,10 @@ package com.esgi.popoll.survey.entity.survey;
 
 import com.esgi.popoll.survey.entity.answer.Answer;
 import com.esgi.popoll.survey.entity.vote.Vote;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;

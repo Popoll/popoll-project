@@ -1,5 +1,6 @@
 package com.esgi.popoll.survey.controller;
 
+import com.esgi.popoll.survey.entity.survey.SurveyAdapter;
 import com.esgi.popoll.survey.entity.survey.SurveyDto;
 import com.esgi.popoll.survey.entity.vote.VoteDto;
 import com.esgi.popoll.survey.exception.InvalidSurveyException;
@@ -46,6 +47,6 @@ public class SurveyController {
 
     @GetMapping("{id}")
     public SurveyDto getSurveyById(@PathVariable final Long id) {
-        return surveyService.getSurveyById(id);
+        return SurveyAdapter.toSurveyDto(surveyService.getSurveyById(id));
     }
 }
