@@ -134,7 +134,7 @@ class PollServiceImpl implements PollService {
 		final String surveyUrl = surveyServiceUrl + "/surveys/" + pollVote.getSurveyId() + "/vote";
 		restTemplate.postForObject(surveyUrl, pollVote, PollVote.class);
 
-		final String resultUrl = uiServiceUrl + "/" + pollVote.getSurveyId();
+		final String resultUrl = uiServiceUrl + "/?ppid=" + pollVote.getSurveyId();
 
 		return Message.builder().text("Thank you! You can ee the results at: " + resultUrl).build();
 	}

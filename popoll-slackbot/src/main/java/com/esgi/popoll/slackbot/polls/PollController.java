@@ -2,21 +2,18 @@ package com.esgi.popoll.slackbot.polls;
 
 import com.esgi.popoll.slackbot.config.ActionPayloadAdapter;
 import com.esgi.popoll.slackbot.config.TriggerAdapter;
-import io.fries.slack.webhook.WebHook;
-import io.fries.slack.webhook.message.Action;
 import io.fries.slack.webhook.message.Attachment;
 import io.fries.slack.webhook.message.Message;
 import io.fries.slack.webhook.trigger.ActionPayload;
 import io.fries.slack.webhook.trigger.Trigger;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClientException;
 
 import java.util.Collections;
-import java.util.stream.Collectors;
 
-import static io.fries.slack.webhook.message.Message.ResponseType.EPHEMERAL;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestController
@@ -82,7 +79,7 @@ class PollController {
 				.attachments(Collections.singletonList(
 					Attachment.builder()
 						.color("#ff0000")
-						.text("An unexpected error occured: " + e.getMessage())
+						.text("Your vote could not be registered!")
 						.build()
 				)).build();
 		}
