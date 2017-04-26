@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { environment } from '../environments/environment';
+import { PollAdapter, toPoll } from './poll-adapter.model';
 import { Poll, GeneratePollMock } from './poll.model';
 
 import 'rxjs/add/operator/toPromise';
@@ -9,7 +10,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class PopollApiService {
 
-  private apiUrl = '';
+  private apiUrl = 'http://localhost:8001';
 
   constructor(private http: Http) {}
 
@@ -19,9 +20,9 @@ export class PopollApiService {
 
     if (environment.enableDebug) console.log('ppid: ' + ppid);
 
-    return this.http.get(this.apiUrl + '/' + ppid)
+    return this.http.get(this.apiUrl + '/surveys/' + ppid)
           .toPromise()
-          .then((res: any) => res.json() as Poll)
+          .then((res: any) => toPoll(res.json() as PollAdapter) as Poll)
           .catch((err: any) => this.handleError(err));
   }
 
