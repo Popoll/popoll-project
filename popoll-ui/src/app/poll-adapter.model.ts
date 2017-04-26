@@ -12,11 +12,14 @@ export function toPoll(pollDto: PollAdapter): Poll {
   let author = pollDto.author;
   let question = pollDto.question;
   let channel = pollDto.channel;
-  
   let answers: string[] = [];
-  pollDto.answers.forEach(answer => answers.push(answer.answer));
+  let votes: number[] = [];
 
-  let votes: number[] = [answers.length];
+  pollDto.answers.forEach(answer => {
+    answers.push(answer.answer);
+    votes.push(0);
+  });
+
   pollDto.votes.forEach(vote => votes[answers.indexOf(vote.answer)]++);
 
   return {
