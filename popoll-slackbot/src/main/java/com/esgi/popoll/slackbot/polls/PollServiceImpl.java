@@ -136,6 +136,6 @@ class PollServiceImpl implements PollService {
 
 		final String resultUrl = uiServiceUrl + "/?ppid=" + pollVote.getSurveyId();
 
-		return Message.builder().text("Thank you! You can ee the results at: " + resultUrl).build();
+		return Message.builder().text("Thank you! You can see the results at: " + resultUrl).build();
 	}
 }
