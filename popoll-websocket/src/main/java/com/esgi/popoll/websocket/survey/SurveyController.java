@@ -9,7 +9,7 @@ public class SurveyController {
 
     @MessageMapping("/socket")
     @SendTo("/topic/survey")
-    public void pushToSocket() {
-
+    public SurveyDto pushToSocket(SurveyDto surveyDto) {
+        return surveyDto;
     }
 }
