@@ -1,0 +1,12 @@
+repositories {
+    maven {
+        url 'http://maven.fries.io/'
+    }
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+
+    compile 'io.fries:slack-webhook:1.0-RC7'
+    compile 'com.google.code.gson:gson:2.8.0'
+}

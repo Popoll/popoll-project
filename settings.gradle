@@ -1,0 +1,9 @@
+rootProject.name = 'popoll-project'
+
+include 'popoll-eureka'
+include 'popoll-config'
+include 'popoll-zuul'
+
+include 'popoll-slackbot'
+include 'popoll-survey'
+include 'popoll-websocket'

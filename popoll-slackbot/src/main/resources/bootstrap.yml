@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: popoll-slackbot
+  cloud:
+    config:
+      uri: http://localhost:8888

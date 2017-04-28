@@ -1,0 +1,16 @@
+spring:
+  application:
+     name: popoll-survey
+  cloud:
+    config:
+      uri: http://localhost:8888
+  datasource:
+    url: jdbc:postgresql://localhost:5432/popolldb
+    username: popoll
+    password: Password1234
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: true
